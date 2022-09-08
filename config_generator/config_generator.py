@@ -261,6 +261,10 @@ class ConfigGenerator():
             ),
 
             # config-only services
+            'gwInfo': ServiceConfig(
+                'gwInfo', self.schema_urls.get('gwInfo'),
+                self.service_config('gwInfo'), self.logger, 'gw-info'
+            ),
             'adminGui': ServiceConfig(
                 'adminGui', self.schema_urls.get('adminGui'),
                 self.service_config('adminGui'), self.logger, 'admin-gui'

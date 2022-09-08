@@ -1,6 +1,10 @@
 {
   "schemas": [
     {
+      "service": "gwInfo",
+      "schema_url": "https://github.com/bgeo-gis/qwc2-gw-services-schemas/raw/master/gw-info-schema.json"
+    },
+    {
       "service": "adminGui",
       "schema_url": "https://github.com/qwc-services/qwc-admin-gui/raw/master/schemas/qwc-admin-gui.json"
     },
