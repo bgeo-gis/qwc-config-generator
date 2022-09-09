@@ -6,6 +6,7 @@ from xml.etree import ElementTree
 import psycopg2
 import shutil
 import time
+from urllib.parse import quote as urlquote
 
 from sqlalchemy.sql import text as sql_text
 
@@ -177,7 +178,9 @@ class QGSReader:
             # postgresql://user:password@host:port/dbname
             connection_string = 'postgresql://'
             if user and password:
-                connection_string += "%s:%s@" % (user, password)
+                connection_string += "%s:%s@" % (
+                    urlquote(user), urlquote(password)
+                )
 
             connection_string += "%s:%s/%s" % (host, port, dbname)
 
@@ -239,7 +242,9 @@ class QGSReader:
         formfields = maplayer.find('attributeEditorForm')
         if editorlayout.text == "tablayout" and formfields is not None:
             for formfield in formfields.findall('.//attributeEditorField'):
-                fieldnames.append(formfield.get('name'))
+                # NOTE: skip missing fields with index="-1"
+                if formfield.get('index') != '-1':
+                    fieldnames.append(formfield.get('name'))
         else:
             aliases = maplayer.find('aliases')
             for alias in aliases.findall('alias'):
