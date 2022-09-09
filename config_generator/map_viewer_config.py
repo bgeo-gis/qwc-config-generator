@@ -154,6 +154,7 @@ class MapViewerConfig(ServiceConfig):
         # additional service config
         cfg_generator_config = self.service_config.get('generator_config', {})
         cfg_qwc2_config = cfg_generator_config.get('qwc2_config', {})
+        cfg_giswater_service_urls = cfg_generator_config.get('giswater_service_urls', {})
 
         # collect restricted menu items from ConfigDB
         qwc2_config['restricted_viewer_tasks'] = self.restricted_viewer_tasks()
@@ -184,6 +185,9 @@ class MapViewerConfig(ServiceConfig):
         ]
         for service_url in service_urls:
             config.pop(service_url, None)
+
+        for name, url in cfg_giswater_service_urls.items():
+            config[name] = url
 
         qwc2_config['config'] = config
 
